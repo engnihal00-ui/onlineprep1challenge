@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ICT Challenge – Prep 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#071a33;--navy2:#0d2a4f;--blue:#2f7bff;--teal:#19d3c5;--white:#f4f9ff;--ok:#22c55e;--bad:#ef4444;--card:#10335f;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{font-family:Figtree,system-ui,sans-serif;color:var(--white);background:var(--navy);
+background-image:linear-gradient(rgba(25,211,197,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(25,211,197,.06) 1px,transparent 1px),radial-gradient(circle at 80% 0,#14478a 0,transparent 55%);background-size:36px 36px,36px 36px,auto;background-attachment:fixed}
+h1,h2,h3{font-family:Outfit,sans-serif;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+.hero{text-align:center;padding-top:9vh}
+.hero h1{font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;letter-spacing:-.5px}
+.hero h1 span{color:var(--teal)}
+.hero p{color:#b8d3f5}
+input{width:100%;padding:14px 16px;border-radius:12px;border:2px solid #2a5694;background:var(--navy2);color:var(--white);font:inherit;font-size:1.05rem;margin:18px 0 6px}
+input:focus,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.err{color:#ff8f8f;min-height:1.4em;font-size:.9rem}
+.btn{cursor:pointer;border:0;border-radius:12px;padding:13px 24px;font:700 1rem Outfit,sans-serif;color:#042;background:var(--teal);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;color:var(--white);border:2px solid #2a5694}
+.top{position:sticky;top:env(safe-area-inset-top,0px);background:rgba(7,26,51,.92);backdrop-filter:blur(8px);padding:10px 16px;z-index:5;border-bottom:1px solid #1d3f6e}
+.bar{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:.9rem}
+.bar b{font-family:Outfit}
+.prog{height:8px;background:#163a68;border-radius:8px;margin-top:8px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .4s}
+.mute{background:none;border:1px solid #2a5694;color:var(--white);border-radius:8px;padding:4px 10px;cursor:pointer}
+.card{background:var(--card);border-radius:18px;padding:22px;margin-top:16px;border:1px solid #234e87;animation:in .3s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.tag{display:inline-block;font-size:.8rem;padding:3px 10px;border-radius:20px;background:#0a2447;color:var(--teal);border:1px solid var(--teal)}
+.q{font-size:1.3rem;font-weight:700;margin:12px 0 16px;font-family:Outfit;line-height:1.35}
+.opts{display:grid;gap:10px}
+.opt{cursor:pointer;text-align:left;padding:14px 16px;border-radius:12px;border:2px solid #2a5694;background:var(--navy2);color:var(--white);font:inherit;font-size:1rem;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt.ok{background:#0f5132;border-color:var(--ok)}.opt.bad{background:#5c1a1a;border-color:var(--bad)}
+.opt:disabled{cursor:default;color:var(--white)}
+.tf{grid-template-columns:1fr 1fr}.tf .opt{text-align:center;font:800 1.5rem Outfit;padding:34px 10px}
+.fill{display:inline-block;min-width:110px;border-bottom:3px solid var(--teal);text-align:center;color:var(--teal)}
+.scn{background:#0a2447;border-left:4px solid var(--teal);padding:12px 14px;border-radius:8px;margin-bottom:14px}
+.ico{font-size:4rem;text-align:center;background:#0a2447;border-radius:16px;padding:14px;margin-bottom:12px}
+.ico small{display:block;font-size:.85rem;color:#9fc3ee}
+.step{display:flex;align-items:center;gap:8px;padding:12px;background:var(--navy2);border:2px solid #2a5694;border-radius:12px;margin-bottom:8px;cursor:grab}
+.step.over{border-color:var(--teal)}.step span{flex:1}
+.step button{background:#163a68;color:#fff;border:0;border-radius:6px;width:32px;height:32px;cursor:pointer}
+.fb{margin-top:14px;padding:12px 14px;border-radius:10px;font-weight:600}
+.fb.ok{background:#0f513266;border:1px solid var(--ok)}.fb.bad{background:#5c1a1a66;border:1px solid var(--bad)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.stats div{background:var(--navy2);border-radius:12px;padding:14px;text-align:center}
+.stats b{display:block;font:800 1.8rem Outfit;color:var(--teal)}
+.big{font:800 3.2rem Outfit;color:var(--teal);text-align:center}
+.hide{display:none}
+@media(max-width:480px){.tf .opt{padding:24px 8px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="start" class="wrap hero">
+ <div style="font-size:3rem">🛰️</div>
+ <h1>ICT Challenge – <span>Prep 1</span></h1>
+ <p style="font-size:1.2rem;font-weight:600">First Term Interactive Assessment</p>
+ <p style="display:inline-block;margin:0 0 6px;padding:6px 18px;border:1px solid var(--teal);border-radius:20px;background:#0a2447;font:700 1.05rem Outfit,sans-serif;color:var(--teal)">Prepared by ENG. NIHAL BADAWY</p>
+ <p>Every question comes from your Google Meet lessons. Read carefully, think, and show what you know. You’ve got this!</p>
+ <input id="nm" maxlength="40" placeholder="Enter your full name" autocomplete="name">
+ <div class="err" id="err"></div>
+ <button class="btn" id="go">Start game</button>
+</div>
+
+<div id="game" class="hide">
+ <div class="top"><div class="wrap" style="padding:0">
+  <div class="bar"><span id="who"></span><span>Question <b id="qn">1</b>/<span id="qt"></span></span><span>Score <b id="sc">0</b>/<span id="mx"></span></span><button class="mute" id="mu" aria-label="Toggle sound">🔊</button></div>
+  <div class="prog"><i id="pg"></i></div></div></div>
+ <div class="wrap"><div id="box"></div>
+  <div class="nav"><button class="btn ghost" id="prev">Previous</button><button class="btn" id="next" disabled>Next question</button></div></div>
+</div>
+
+<div id="end" class="wrap hide"><div class="card">
+ <h2 id="rn" style="text-align:center"></h2>
+ <div class="big" id="rp"></div>
+ <p style="text-align:center;font:700 1.3rem Outfit" id="rl"></p>
+ <div class="stats" id="rs"></div>
+ <p style="text-align:center"><button class="btn" onclick="location.reload()">Play again</button></p>
+</div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+// type labels
+const L={mcq:'Multiple choice',tf:'True or false',fill:'Complete the sentence',arr:'Arrange the steps',ico:'Identify the feature',scn:'Scenario'};
+const M=(q,c,w,h)=>({t:'mcq',q,o:shuf([c,...w]),a:c,h,m:1});
+const F=(q,a,h)=>({t:'tf',q,o:['True','False'],a:a?'True':'False',h,m:1});
+const C=(q,c,w,h)=>({t:'fill',q,o:shuf([c,...w]),a:c,h,m:1});
+const A=(q,steps,h)=>({t:'arr',q,steps,h,m:2});
+const I=(q,icon,cap,c,w,h)=>({t:'ico',q,icon,cap,o:shuf([c,...w]),a:c,h,m:1});
+const S=(q,sit,c,w,h)=>({t:'scn',q,sit,o:shuf([c,...w]),a:c,h,m:1});
+const Q=[
+M('Google Meet is a/an ______.','video conferencing service',['audio-only service','voice-only service','storage service'],'Think about what you see AND hear in a meeting.'),
+M('To access the Google Meet service, you must have a/an ______.','Google account',['Yahoo account','bank account','electronic wallet'],'Meet belongs to Google.'),
+M('Which of the following is NOT a feature of Google Meet?','Document editing',['Group video calls','Screen sharing','Real-time chat'],'Three of these are things you do inside a meeting.'),
+M('To start an instant meeting in Google Meet, you first click on ______.','“New meeting”',['“Join meeting”','“End meeting”','“Schedule a meeting”'],'You are creating something new.'),
+M('To express your opinion in an organized manner during a meeting, you can ______.','click on the hand icon',['click on the meeting link','talk at any time','exit before the end of the meeting'],'Organized means you wait for your turn.'),
+M('When you finish showing your screen during the meeting, you should ______.','click “Stop presenting”',['not send the meeting link to others','talk without permission','share the screen'],'You started sharing, so you must do the opposite.'),
+M('The Google Meet link can be shared with participants via ______.','email or WhatsApp',['printed invitations','SMS only','postcards'],'The link is digital, so share it digitally.'),
+F('Google Meet is a video conferencing service developed by Google.',true,'Review the first lesson definition.'),
+F('To access Google Meet, you must have a Microsoft account.',false,'Which company owns Meet?'),
+F('It is acceptable to share the Google Meet link without asking the meeting owner’s permission.',false,'Think about meeting safety.'),
+F('During a Google Meet, you should mute the mic when not speaking.',true,'Background noise disturbs everyone.'),
+F('The first step to start an instant meeting is to send the meeting link to the participants.',false,'You can’t send a link that doesn’t exist yet.'),
+F('The “Stop presenting” option is used to end the screen sharing during a meeting.',true,'Read the button name again.'),
+C('Google Meet is primarily used for ______.','video conferencing',['online shopping','storing files','editing photos'],'It connects people face to face online.'),
+C('To use Google Meet, you need to have a ______.','Google account',['bank account','Yahoo account','phone contract'],'Meet is a Google service.'),
+C('To create a meeting next week through Google Meet, choose ______.','Create a meeting for a later time',['Start an instant meeting','Stop presenting','Share screen'],'Next week is not now.'),
+C('When you stop speaking in a Google meeting, you should turn off ______.','the microphone',['the meeting link','the hand icon','the Google account'],'It keeps the session quiet and organized.'),
+A('Put the steps for starting an instant Google Meet meeting in order.',['Go to the Google Meet app','Click on “New meeting”','Start an instant meeting','Copy the meeting link','Send the meeting link to participants'],'The link only exists after the meeting is created.'),
+A('Put the steps for creating a meeting for a later time in order.',['Go to the Google Meet app','Click on “New meeting”','Create a meeting for a later time','Copy the meeting link','Send the meeting link to participants'],'Choose the type of meeting before copying the link.'),
+A('Put the steps for joining a meeting you were invited to in order.',['Receive the meeting link','Click on the meeting link','Wait until the organizer approves your request','Listen and mute your mic when not speaking'],'Approval comes before you take part.'),
+A('Put the steps for sharing a presentation in order.',['Click the share screen button','Choose what to present','Show your presentation to participants','Click “Stop presenting” when you finish'],'Ending the share is always the last step.'),
+I('What is the purpose of this button?','🎤','Microphone','Turn your microphone on or off',['Send the meeting link','Leave the meeting','Start a new meeting'],'You use it to speak or stay quiet.'),
+I('Which feature does this icon represent?','✋','Hand icon','Raise your hand to speak in an organized way',['Talk at any time','Stop sharing','Join a meeting'],'Think about how you speak politely in class.'),
+I('What can you do with this feature?','💬','Chat','Send written messages in real time',['Download the app','Create a Google account','End the meeting for all'],'It is a real-time text feature.'),
+I('What does this button do?','🖥️','Share screen','Show your screen or presentation to participants',['Mute everyone','Invite by SMS only','Switch accounts'],'It lets others see what you see.'),
+I('You see this button while presenting. What does it do?','⏹️','Stop presenting','End your screen sharing',['Leave the meeting','Raise your hand','Copy the link'],'Look at the button name from your lesson.'),
+S('You are attending a Google Meet and another student is speaking. What should you do?','Mona is explaining her answer to the class.','Listen, and keep your mic muted',['Talk at the same time','Leave the meeting','Send the link to a stranger'],'Listening and muting keep the session organized.'),
+S('You want to ask a question while the teacher is explaining. What should you do?','Your teacher is still talking.','Click the hand icon and wait',['Speak at any time','Exit the meeting','Turn on your mic and shout'],'Organized speaking uses the hand icon.'),
+S('You finished sharing your screen. What should you click?','Your presentation is over.','“Stop presenting”',['“New meeting”','“Join meeting”','“Share screen”'],'Match the action to the end of sharing.'),
+S('You receive a meeting link from your teacher. How do you join safely?','The invitation came by WhatsApp.','Click the link and wait for approval',['Send it to everyone you know','Post it publicly','Ignore the organizer'],'Joining safely means respecting the organizer’s approval.')
+];
+const MAX=Q.reduce((s,q)=>s+q.m,0);
+let cur=0,score=0,mute=false;const R=Q.map(()=>null);
+Q.forEach(q=>{if(q.t==='arr')q.cur=shuf(q.steps)});
+let ac;
+function snd(ok){if(mute)return;try{ac=ac||new AudioContext();const t=ac.currentTime;(ok?[523,784]:[220,160]).forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.type=ok?'sine':'sawtooth';g.gain.setValueAtTime(.12,t+i*.12);g.gain.exponentialRampToValueAtTime(.001,t+i*.12+.2);o.connect(g);g.connect(ac.destination);o.start(t+i*.12);o.stop(t+i*.12+.2)})}catch(e){}}
+$('mu').onclick=()=>{mute=!mute;$('mu').textContent=mute?'🔇':'🔊'};
+let name='';
+$('go').onclick=()=>{const v=$('nm').value.trim();if(v.length<2){$('err').textContent='Please enter your full name to begin.';return}
+ name=v;$('who').textContent=name;$('start').classList.add('hide');$('game').classList.remove('hide');$('qt').textContent=Q.length;$('mx').textContent=MAX;draw()};
+$('nm').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function draw(){
+ const q=Q[cur],r=R[cur];
+ $('qn').textContent=cur+1;$('sc').textContent=score;
+ $('pg').style.width=(R.filter(Boolean).length/Q.length*100)+'%';
+ $('prev').disabled=cur===0;$('next').disabled=!r;$('next').textContent=cur===Q.length-1?'See results':'Next question';
+ let h='<div class="card"><span class="tag">'+L[q.t]+' · '+q.m+(q.m>1?' marks':' mark')+'</span>';
+ if(q.t==='scn')h+='<div class="q">'+esc(q.q)+'</div><div class="scn">'+esc(q.sit)+'</div>';
+ else if(q.t==='ico')h+='<div class="q">'+esc(q.q)+'</div><div class="ico">'+q.icon+'<small>'+esc(q.cap)+'</small></div>';
+ else if(q.t==='fill')h+='<div class="q">'+esc(q.q).replace('______','<span class="fill">'+(r?esc(r.pick):'&nbsp;&nbsp;&nbsp;?&nbsp;&nbsp;&nbsp;')+'</span>')+'</div>';
+ else h+='<div class="q">'+esc(q.q)+'</div>';
+ if(q.t==='arr'){h+='<div id="lst"></div>'+(r?'':'<button class="btn" id="chk">Check order</button>')}
+ else{h+='<div class="opts '+(q.t==='tf'?'tf':'')+'">'+q.o.map((o,i)=>{let c='';if(r&&r.pick===o)c=r.ok?'ok':'bad';return '<button class="opt '+c+'" data-i="'+i+'"'+(r?' disabled':'')+'>'+esc(o)+'</button>'}).join('')+'</div>'}
+ if(r)h+='<div class="fb '+(r.ok?'ok':'bad')+'">'+(r.ok?'✔ Correct! +'+q.m:'✘ Not quite. Hint: '+esc(q.h)+' Reread the lesson and be ready for the next one.')+'</div>';
+ $('box').innerHTML=h+'</div>';
+ if(q.t==='arr')drawList(q,r);
+ else document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(q.o[b.dataset.i]));
+}
+function answer(p){if(R[cur])return;const q=Q[cur],ok=p===q.a;R[cur]={ok,pick:p};if(ok)score+=q.m;snd(ok);draw()}
+function drawList(q,r){
+ const L2=$('lst');let drag=null;
+ const paint=()=>{L2.innerHTML='';q.cur.forEach((s,i)=>{const d=document.createElement('div');d.className='step';d.draggable=!r;
+  d.innerHTML='<b>'+(i+1)+'</b><span>'+esc(s)+'</span>'+(r?'':'<button aria-label="Move up">▲</button><button aria-label="Move down">▼</button>');
+  if(!r){const[b1,b2]=d.querySelectorAll('button');
+   const mv=(a,b)=>{if(b<0||b>=q.cur.length)return;[q.cur[a],q.cur[b]]=[q.cur[b],q.cur[a]];paint()};
+   b1.onclick=()=>mv(i,i-1);b2.onclick=()=>mv(i,i+1);
+   d.ondragstart=()=>{drag=i};d.ondragover=e=>{e.preventDefault();d.classList.add('over')};d.ondragleave=()=>d.classList.remove('over');
+   d.ondrop=e=>{e.preventDefault();if(drag===null)return;const [x]=q.cur.splice(drag,1);q.cur.splice(i,0,x);drag=null;paint()}}
+  L2.appendChild(d)})};
+ paint();
+ const c=$('chk');if(c)c.onclick=()=>{if(R[cur])return;const ok=q.cur.every((s,i)=>s===q.steps[i]);R[cur]={ok,pick:'x'};if(ok)score+=q.m;snd(ok);draw()};
+}
+$('prev').onclick=()=>{if(cur>0){cur--;draw()}};
+$('next').onclick=()=>{if(cur<Q.length-1){cur++;draw()}else finish()};
+function finish(){
+ $('game').classList.add('hide');$('end').classList.remove('hide');
+ const ok=R.filter(r=>r&&r.ok).length,pc=Math.round(score/MAX*100);
+ const lvl=pc>=90?'🏆 ICT Master':pc>=75?'🚀 Tech Pro':pc>=50?'⚡ Rising Star':'🌱 Keep Practising';
+ $('rn').textContent=name+', here are your results';$('rp').textContent=pc+'%';$('rl').textContent=lvl;
+ $('rs').innerHTML='<div><b>'+Q.length+'</b>Total questions</div><div><b>'+ok+'</b>Correct</div><div><b>'+(Q.length-ok)+'</b>Incorrect</div><div><b>'+score+'/'+MAX+'</b>Final score</div>';
+ snd(pc>=50);
+}
+</script></body></html>
